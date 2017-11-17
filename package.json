@@ -1,0 +1,37 @@
+{
+  "name": "express-sequelize-restful",
+  "version": "0.1.0",
+  "description": "Quickly use sequelize restful api on express",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lpreterite/express-sequelize-restful.git"
+  },
+  "keywords": [
+    "express",
+    "sequelize",
+    "restful"
+  ],
+  "engines": {
+    "node": "^6.12.0"
+  },
+  "author": "packy-tang <lpreterite@126.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lpreterite/express-sequelize-restful/issues"
+  },
+  "homepage": "https://github.com/lpreterite/express-sequelize-restful#readme",
+  "dependencies": {
+    "sequelize": "^4.22.7"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "express": "^4.16.2",
+    "mocha": "^4.0.1",
+    "sqlite3": "^3.1.13",
+    "supertest": "^3.0.0"
+  }
+}
