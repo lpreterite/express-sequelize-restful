@@ -1,4 +1,7 @@
 # express-sequelize-restful
+
+[![npm](https://img.shields.io/badge/node-%3E%3D6.12.0-green.svg)](https://github.com/lpreterite/express-sequelize-restful) [![npm](https://img.shields.io/npm/l/express.svg)](https://github.com/lpreterite/express-sequelize-restful/blob/master/LICENSE)
+
 Quickly use sequelize restful api on express
 
 ## How to use
