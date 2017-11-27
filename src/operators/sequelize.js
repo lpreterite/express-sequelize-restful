@@ -243,17 +243,66 @@ function del(model) {
     }
 }
 
-module.exports = {
-    getEntity,
-    fetch,
-    find,
-    create,
-    update,
-    patch,
-    del,
-    parserCondition,
-    parserPagination,
-    serializePagination,
-    order,
-    error
+function getRoutes(model){
+    return {
+        'fetch': [
+            '/search',
+            [fetch(model)]
+        ],
+        'select': [
+            '/',
+            [fetch(model)],
+        ],
+        'find': [
+            '/:id(\\d+)',
+            [getEntity(model, { idField: 'id' }), find()],
+        ],
+        'create': [
+            '/',
+            [create(model)],
+        ],
+        'update': [
+            '/:id(\\d+)',
+            [getEntity(model, { idField: 'id' }), update(model)],
+        ],
+        'patch': [
+            '/:id(\\d+)',
+            [patch(model)],
+        ],
+        'delete': [
+            '/:id(\\d+)',
+            [getEntity(model, { idField: 'id' }), del(model)],
+        ],
+    };
+}
+
+module.exports = function ({ model, methods }){
+    return {
+        model,
+        methods: methods,
+        hooks: {
+            before: {
+                fetch: [parserPagination(), parserCondition(Object.keys(model.attributes)), order()],
+                select: [parserCondition(Object.keys(model.attributes)), order()]
+            },
+            after: {
+                fetch: [serializePagination(model)]
+            }
+        },
+        operations: {
+            getEntity,
+            fetch,
+            find,
+            create,
+            update,
+            patch,
+            del,
+            parserCondition,
+            parserPagination,
+            serializePagination,
+            order,
+            error
+        },
+        routes: getRoutes(model)
+    }
 }

@@ -65,12 +65,10 @@ sequelize.sync();
 
 // service set
 const restful = new RestfulMixin({ prefix: '/user', constructor: Router });
-const router = restful.parse({
-    operators: operators.sequelize,
+const router = restful.parse(operators.sequelize({
     model: user,
     methods: ['fetch', 'select', 'find', 'create', 'update', 'patch', 'delete']
-});
-
+}));
 app.use('/', router);
 
 const http = require('http').Server(app);

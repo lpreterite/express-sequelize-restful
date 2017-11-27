@@ -10,57 +10,13 @@ const methodTypes = {
     "delete": 'delete',
 };
 class RestfulMixin extends RouterMixin {
-    getRoutes(model, {
-        getEntity,
-        fetch,
-        find,
-        create,
-        update,
-        patch,
-        del,
-        parserCondition,
-        parserPagination,
-        serializePagination,
-        order,
-        error
-    }) {
-        return {
-            'fetch': [
-                '/search',
-                [parserPagination(), parserCondition(Object.keys(model.attributes)), order(), fetch(model), serializePagination(model)]
-            ],
-            'select': [
-                '/',
-                [parserCondition(Object.keys(model.attributes)), order(), fetch(model)],
-            ],
-            'find': [
-                '/:id(\\d+)',
-                [getEntity(model, { idField: 'id' }), find()],
-            ],
-            'create': [
-                '/',
-                [create(model)],
-            ],
-            'update': [
-                '/:id(\\d+)',
-                [getEntity(model, { idField: 'id' }), update(model)],
-            ],
-            'patch': [
-                '/:id(\\d+)',
-                [patch(model)],
-            ],
-            'delete': [
-                '/:id(\\d+)',
-                [getEntity(model, { idField: 'id' }), del(model)],
-            ],
-        };
-    }
     parse(options) {
+        // 获得 operator 然后合并methods与hooks生成路由
         const model = options.model;
         const hooks = Object.assign({ before: {}, after: {} }, options.hooks);
         const methods = options.methods;
         const result = {};
-        const routes = this.getRoutes(model, options.operators);
+        const routes = options.routes;
 
         methods.forEach(method => {
             const router = result[methodTypes[method]] || [];
